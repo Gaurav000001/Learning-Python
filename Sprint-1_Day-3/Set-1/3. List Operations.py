@@ -19,3 +19,14 @@ print("List after removing 3:", list)
 # Sort the list in ascending order
 list.sort()
 print("Sorted list:", list)
+
+
+
+#Extras
+print("Original list:", list)
+
+# Remove the element at index 2 (which is 30 in this case)
+removed_element = list.pop(2)
+
+print("Removed element:", removed_element)
+print("list after removing the element at index 2 i.e. 4: ", list)
