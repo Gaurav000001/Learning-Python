@@ -26,8 +26,8 @@ def write_word_count(file_path, count):
 
 
 if __name__ == "__main__":
-    input_file = "input.txt"
-    output_file = "output.txt"
+    input_file = "Sprint-1_Day-3\Set-3\input.txt"
+    output_file = "Sprint-1_Day-3\Set-3\output.txt"
 
     word_count = count_words(input_file)
     write_word_count(output_file, word_count)
