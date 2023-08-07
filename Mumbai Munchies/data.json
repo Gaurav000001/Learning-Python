@@ -1,0 +1,20 @@
+{
+    "ids": {
+        "snack": 3,
+        "bill": 1
+    },
+    "snacks": {
+        "1": {
+            "name": "samosa",
+            "stock": 9,
+            "price": 25
+        },
+        "2": {
+            "name": "mirchi wada",
+            "stock": 25,
+            "price": 10
+        }
+    },
+    "sales": {},
+    "bills": {}
+}
