@@ -1,12 +1,12 @@
 {
     "ids": {
         "snack": 3,
-        "bill": 1
+        "bill": 3
     },
     "snacks": {
         "1": {
             "name": "samosa",
-            "stock": 9,
+            "stock": 2,
             "price": 25
         },
         "2": {
@@ -15,6 +15,32 @@
             "price": 10
         }
     },
-    "sales": {},
-    "bills": {}
+    "sales": {
+        "08-08-2023": {
+            "samosa": {
+                "quantity_sold": 7,
+                "revenue_generated": 175
+            }
+        }
+    },
+    "bills": {
+        "08-08-2023": [
+            {
+                "id": 1,
+                "snackId": 1,
+                "quantity": 4,
+                "pricePerItem": 25,
+                "billAmount": 100,
+                "datetime": "08-08-2023 07:41:52"
+            },
+            {
+                "id": 2,
+                "snackId": "1",
+                "quantity": 3,
+                "pricePerItem": 25,
+                "billAmount": 75,
+                "datetime": "08-08-2023 07:45:19"
+            }
+        ]
+    }
 }

@@ -190,7 +190,12 @@ def saleSnack():
                 # Extracting Snacks from data
                 snacks = data["snacks"]
                 # Getting Snack by Id if not present get(id) method will return None
-                snack = snacks.get(id)
+                # Converting Id to string type because we cannot store key as a string type so that we also need to search using a string key
+                id = str(id)
+                snack = snacks.get(id, None)
+                
+                # Converting back the id from string to integer for ferther requirements
+                # id = int(id)
                 
                 # If snack is not found with id print error
                 if snack is None:
@@ -212,7 +217,7 @@ def saleSnack():
                     
                     if confirmation == 1:
                         # Getting quantity from user
-                        quantity = int(print("Enter quantity: "))
+                        quantity = int(input("Enter quantity: "))
                         
                         # Check if user provided valid input or not
                         if quantity <= 0:
@@ -220,7 +225,8 @@ def saleSnack():
                             
                         # Check if these much quantity available or not
                         elif quantity > stock:
-                            print("\nSorry! We don't have enough of this item to fulfill your order.\n")
+                            print("\n----- Sorry! We don't have enough of this item to fulfill your order. -----\n")
+                            return
                         
                         # Calculate the bill Create The bill Persist into the database at "bills" section and
                         # Update sales information at "sales" section
@@ -267,7 +273,7 @@ def saleSnack():
                                 try:
                                     # Attempt to write data to a JSON file
                                     # While opening the file to write on it, if not found, file will be automatically created
-                                    with open('output.json', 'w') as json_file:
+                                    with open('data.json', 'w') as json_file:
                                         # indent is added to make the file format more readable
                                         
                                         # Sales
@@ -299,8 +305,8 @@ def saleSnack():
                                         json.dump(data, json_file, indent=4)
                                         
 
-                                    print("\n###############  Order Placed successfully.  ##############\n")
-                                    print("\n---------------  Here is Your Bill Generated  ---------------")
+                                    print("\n###############  Order Placed successfully.  ##############")
+                                    print("---------------  Here is Your Bill Generated  ---------------\n")
                                     print(f"\n~ Bill ID:- {billId}\n~ Snack:- {name}\n~ Quantity:- {quantity}\n~ Price Per Item:- ₹{price}\n~ Bill Amount:- ₹{billPrice}\n~ Order Time:- {date_time}")
                                     
                                 except PermissionError:
@@ -385,7 +391,9 @@ while True:
             
         # elif choice == 2:
             
-        # elif choice == 3:
+        elif choice == 3:
+            saleSnack()
+            print()
             
         # elif choice == 4:
             
