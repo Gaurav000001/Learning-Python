@@ -5,27 +5,51 @@ import datetime
 # ---------------------------------------------------------------
 
 # data = {
-#  "ids": {"snack": 1, "bill": 1},
-#  "snacks": {
-#             name: {
+#     "ids": {
+#         "snack": 3,
+#         "bill": 3
+#     },
+#     "snacks": {
+#         "1": {
+#             "name": "samosa",
+#             "stock": 2,
+#             "price": 25
+#         },
+#         "2": {
+#             "name": "mirchi wada",
+#             "stock": 25,
+#             "price": 10
+#         }
+#     },
+#     "sales": {
+#         "08-08-2023": {
+#             "samosa": {
+#                 "unit_sold": 7,
+#                 "revenue_generated": 175
+#             }
+#         }
+#     },
+#     "bills": {
+#         "08-08-2023": [
+#             {
 #                 "id": 1,
-#                 "stock": 2,
-#                 "price": 30
-#                 }
+#                 "snackId": 1,
+#                 "quantity": 4,
+#                 "pricePerItem": 25,
+#                 "billAmount": 100,
+#                 "datetime": "08-08-2023 07:41:52"
 #             },
-#  "sales": {},
-#  "bills": {}}
-round = 1
-
-# name will be unique along with id
-# snack = {
-#     "id": 1,
-#     "stock": 2,
-#     "price": 30
+#             {
+#                 "id": 2,
+#                 "snackId": 1,
+#                 "quantity": 3,
+#                 "pricePerItem": 25,
+#                 "billAmount": 75,
+#                 "datetime": "08-08-2023 07:45:19"
+#             }
+#         ]
+#     }
 # }
-
-
-
 
 # ---------------------------------------------------------------
 
@@ -194,9 +218,6 @@ def saleSnack():
                 id = str(id)
                 snack = snacks.get(id, None)
                 
-                # Converting back the id from string to integer for ferther requirements
-                # id = int(id)
-                
                 # If snack is not found with id print error
                 if snack is None:
                     print(f"\nXXXXXXXXXXXXXXXX    Snack with ID: {id} Not Found    XXXXXXXXXXXXXXXX")
@@ -254,6 +275,9 @@ def saleSnack():
                             #     'billAmount': billPrice,
                             #     'datetime': time
                             # }
+                            
+                            # Converting back the id from string to integer for ferther requirements
+                            id = int(id)
                             bill = {
                                 "id": billId,
                                 "snackId": id,
@@ -280,7 +304,7 @@ def saleSnack():
                                         sales = data['sales']
                                         daySales = sales.get(date, {})
                                         item = daySales.get(name, {})
-                                        item['quantity_sold'] = item.get('quantity_sold', 0) + quantity
+                                        item['units_sold'] = item.get('units_sold', 0) + quantity
                                         item['revenue_generated'] = item.get('revenue_generated', 0) + billPrice
 
                                         daySales[name] = item
@@ -294,6 +318,7 @@ def saleSnack():
                                         bills[date] = dayBills
                                         
                                         # Update Stock of the snacks
+                                        id = str(id)
                                         stock = stock - quantity
                                         snack['stock'] = stock
                                         snacks[id] = snack
@@ -341,27 +366,255 @@ def saleSnack():
 
 
 
+def showSalesHistory():
+    try:
+        
+        with open("data.json", 'r') as json_file:
+            data = json.load(json_file)
+            
+            sales = data['sales']
+            for day in sales.keys():
+                print(f"-------------  Date: {day} Sales  -------------")
+                daySales = sales[day]
+                
+                for item in daySales:
+                    
+                    snack = item
+                    units_sold = daySales[snack]['units_sold']
+                    revenue_generated = daySales[snack]['revenue_generated']
+                                
+                    print(f"\n~ Snack:- {snack}\n~ Units Sold:- {units_sold}\n~ Revenue Generated:- {revenue_generated}")
+            
+    except FileNotFoundError:
+        print("JSON file not found.")
+    except json.JSONDecodeError:
+        print("Error decoding JSON data in the file.")    
 
 
-def removeSnackFromInventory() -> bool:
-    return
+
+def showBillsGenerated():
+    try:
+        
+        with open('data.json', 'r') as json_file:
+            data = json.load(json_file)
+            
+            bills = data['bills']
+            for day in bills.keys():
+                print(f"-------------  Date: {day} Bills  -------------")
+                
+                dayBills = bills[day]
+                for bill in dayBills:
+                    
+                    id = bill['id']
+                    snackId = bill['snackId']
+                    quantity = bill['quantity']
+                    pricePerItem = bill['pricePerItem']
+                    billAmount = bill['billAmount']
+                    date_time = bill['datetime']
+                    
+                    
+                    
+                    print(f"\n~ Bill ID:- {id}\n~ Snack ID:- {snackId}\n~ Quantity:- {quantity}\n~ Price Per Item:- ₹{pricePerItem}\n~ Bill Amount:- ₹{billAmount}\n~ Order Time:- {date_time}")
+
+    except FileNotFoundError:
+        print("JSON file not found.")
+    except json.JSONDecodeError:
+        print("Error decoding JSON data in the file.")  
+
+
+
+
+def removeSnack() -> bool:
+    try:
+        id = int(input("Enter Snack ID: "))
+        
+        try:
+            with open('data.json', 'r') as json_file:
+                data = json.load(json_file)
+                
+                if data:
+                    # When data is present in .json file program will try to execute this 
+                    # if statement but it will do nothing as it will get passed by the executer
+                    pass
+                
+                else:
+                    # When .json file is completely empty this statement will get executed
+                    print("JSON file is empty or contains no data.")
+                
+                # Extracting Snacks from data
+                snacks = data["snacks"]
+                # Getting Snack by Id if not present get(id) method will return None
+                # Converting Id to string type because we cannot store key as a string type so that we also need to search using a string key
+                id = str(id)
+                snack = snacks.get(id, None)
+                
+                # If snack is not found with id print error
+                if snack is None:
+                    print(f"\nXXXXXXXXXXXXXXXX    Snack with ID: {id} Not Found    XXXXXXXXXXXXXXXX")
+                    
+                # Else provide snack information and ask for quantity required
+                else:
+                    name = snack["name"]
+                    stock = snack["stock"]
+                    price = snack["price"]
+                    
+                    # Displaying the product information to the user
+                    print("\n#####################   Yippee!! Found Your Snack   #####################")
+                    print("----- Please Confirm that it is the Product you where searching for -----")
+                    print(f"\n~ Id:- {id}\n~ Name:- {name}\n~ Stock:- {stock}\n~ Price:- ₹{price}")
+                    
+                    # Getting confirmation from user
+                    confirmation = int(input("Please Confirm (YES: 1, NO: 0): "))
+                    
+                    if confirmation == 1:
+                        
+                        # Getting confirmation from user to delete
+                        deletionConfirmation = int(input("Are You Sure?, You wanna Delete? (YES: 1, NO: 0): "))
+                        
+                        if deletionConfirmation == 1:
+                            
+                            del snacks[id]
+                            
+                            try:
+                                # Attempt to write data to a JSON file
+                                # While opening the file to write on it, if not found, file will be automatically created
+                                with open('data.json', 'w') as json_file:
+                                    # indent is added to make the file format more readable
+                        
+                                    json.dump(data, json_file, indent=4)
+                                    print("\n#############   Successfully Delete...   #############")
+                                    
+                            except PermissionError:
+                                print("Error: Permission denied. Unable to write to JSON file.")
+                            except Exception as e:
+                                print(f"An error occurred: {e}")
+                        
+                        elif deletionConfirmation == 0:
+                            print("\n===========   System abort, Happy Shopping...   ============")
+                        
+                        else:
+                            print("Invalid input, please try again later")
+                            return
+                        
+                    elif confirmation == 0:
+                        print("\n===========   System abort, Happy Shopping...   ============")
+                        
+                    else:
+                        print("Invalid input, please try again later")
+                        return
+            
+        except FileNotFoundError:
+            print("JSON file not found.")
+        except json.JSONDecodeError:
+            print("Error decoding JSON data in the file.") 
+            
+    except:
+        print("Invalid input, please try again later")
+        
+        
+        
 
 # Can update stock available and price 
-def updateSnackDetails() -> dict:
-    return
+def updateSnackDetails():
+    try:
+        id = int(input("Enter Snack ID: "))
+        
+        try:
+            with open('data.json', 'r') as json_file:
+                data = json.load(json_file)
+                
+                if data:
+                    # When data is present in .json file program will try to execute this 
+                    # if statement but it will do nothing as it will get passed by the executer
+                    pass
+                
+                else:
+                    # When .json file is completely empty this statement will get executed
+                    print("JSON file is empty or contains no data.")
+                
+                # Extracting Snacks from data
+                snacks = data["snacks"]
+                # Getting Snack by Id if not present get(id) method will return None
+                # Converting Id to string type because we cannot store key as a string type so that we also need to search using a string key
+                id = str(id)
+                snack = snacks.get(id, None)
+                
+                # If snack is not found with id print error
+                if snack is None:
+                    print(f"\nXXXXXXXXXXXXXXXX    Snack with ID: {id} Not Found    XXXXXXXXXXXXXXXX")
+                    
+                # Else provide snack information and ask for quantity required
+                else:
+                    name = snack["name"]
+                    stock = snack["stock"]
+                    price = snack["price"]
+                    
+                    # Displaying the product information to the user
+                    print("\n#####################   Yippee!! Found Your Snack   #####################")
+                    print("----- Please Confirm that it is the Product you where searching for -----")
+                    print(f"\n~ Id:- {id}\n~ Name:- {name}\n~ Stock:- {stock}\n~ Price:- ₹{price}")
+                    
+                    # Getting confirmation from user
+                    confirmation = int(input("Please Confirm (YES: 1, NO: 0): "))
+                    
+                    if confirmation == 1:
+                        
+                        # Getting Stock from user
+                        updatedStock = int(input("Enter updated Stock: "))
+                        updatedPrice = int(input("Enter updated Price: "))
+                        
+                        # Getting confirmation from user to delete
+                        updationConfirmation = int(input("Are You Sure?, You wanna update? (YES: 1, NO: 0): "))
+                        
+                        if updationConfirmation == 1:
+                            
+                            stock = updatedStock
+                            price = updatedPrice
+                            
+                            snack['stock'] = stock
+                            snack['price'] = price
+                            
+                            try:
+                                # Attempt to write data to a JSON file
+                                # While opening the file to write on it, if not found, file will be automatically created
+                                with open('data.json', 'w') as json_file:
+                                    # indent is added to make the file format more readable
+                        
+                                    json.dump(data, json_file, indent=4)
+                                    print("\n#############   Successfully Updated...   #############")
+                                    
+                            except PermissionError:
+                                print("Error: Permission denied. Unable to write to JSON file.")
+                            except Exception as e:
+                                print(f"An error occurred: {e}")
+                        
+                        elif updationConfirmation == 0:
+                            print("\n===========   System abort, Happy Shopping...   ============")
+                        
+                        else:
+                            print("Invalid input, please try again later")
+                            return
+                        
+                    elif confirmation == 0:
+                        print("\n===========   System abort, Happy Shopping...   ============")
+                        
+                    else:
+                        print("Invalid input, please try again later")
+                        return
+            
+        except FileNotFoundError:
+            print("JSON file not found.")
+        except json.JSONDecodeError:
+            print("Error decoding JSON data in the file.") 
+            
+    except:
+        print("Invalid input, please try again later")
 
 
-def showSalesHistory():
-    return
 
 
 
 
-
-
-# d = {}
-# # KeyError
-# print(d["name"])
 
 while True:
     if round == 1:
@@ -375,8 +628,9 @@ while True:
     print("3. Sale Snack and Generate Bill")
     print("4. Delete Snack from inventory")
     print("5. Show Sales History")
-    print("6. Show All Snacks Available")
-    print("7. Exit")
+    print("6. Show Bills Generated ")
+    print("7. Show All Snacks Available")
+    print("8. Exit")
     print("*******")
     
     try: 
@@ -389,21 +643,33 @@ while True:
                 print("XXXXXXXXXXXXXXXX   Not able to add Item..   XXXXXXXXXXXXXXXX")
             print()
             
-        # elif choice == 2:
+        elif choice == 2:
+            updateSnackDetails()
+            print()
             
         elif choice == 3:
             saleSnack()
             print()
             
-        # elif choice == 4:
+        elif choice == 4:
+            removeSnack()
+            print()
             
-        # elif choice == 5:
-        
+        elif choice == 5:
+            print()
+            showSalesHistory()
+            print()
+            
         elif choice == 6:
-            showAllSnacksAvailable()
+            print()
+            showBillsGenerated()
             print()
             
         elif choice == 7:
+            showAllSnacksAvailable()
+            print()
+            
+        elif choice == 8:
             print("\nThank You!! Keep using our services....")
             print("Exiting.......")
             break

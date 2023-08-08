@@ -6,19 +6,14 @@
     "snacks": {
         "1": {
             "name": "samosa",
-            "stock": 2,
-            "price": 25
-        },
-        "2": {
-            "name": "mirchi wada",
-            "stock": 25,
-            "price": 10
+            "stock": 23,
+            "price": 20
         }
     },
     "sales": {
         "08-08-2023": {
             "samosa": {
-                "quantity_sold": 7,
+                "unit_sold": 7,
                 "revenue_generated": 175
             }
         }
@@ -35,7 +30,7 @@
             },
             {
                 "id": 2,
-                "snackId": "1",
+                "snackId": 1,
                 "quantity": 3,
                 "pricePerItem": 25,
                 "billAmount": 75,
