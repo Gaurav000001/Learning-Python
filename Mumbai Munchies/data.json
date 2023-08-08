@@ -1,19 +1,28 @@
 {
     "ids": {
-        "snack": 3,
-        "bill": 3
+        "snack": 4,
+        "bill": 4
     },
     "snacks": {
         "1": {
             "name": "samosa",
             "stock": 23,
             "price": 20
+        },
+        "3": {
+            "name": "imli",
+            "stock": 5,
+            "price": 7
         }
     },
     "sales": {
         "08-08-2023": {
             "samosa": {
-                "unit_sold": 7,
+                "units_sold": 7,
+                "revenue_generated": 175
+            },
+            "imli": {
+                "units_sold": 25,
                 "revenue_generated": 175
             }
         }
@@ -35,6 +44,14 @@
                 "pricePerItem": 25,
                 "billAmount": 75,
                 "datetime": "08-08-2023 07:45:19"
+            },
+            {
+                "id": 3,
+                "snackId": 3,
+                "quantity": 25,
+                "pricePerItem": 7,
+                "billAmount": 175,
+                "datetime": "08-08-2023 10:49:41"
             }
         ]
     }

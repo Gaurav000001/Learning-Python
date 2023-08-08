@@ -40,7 +40,7 @@ import datetime
 #     "sales": {
 #         "08-08-2023": {
 #             "samosa": {
-#                 "unit_sold": 7,
+#                 "units_sold": 7,
 #                 "revenue_generated": 175
 #             }
 #         }
