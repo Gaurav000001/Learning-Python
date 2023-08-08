@@ -4,6 +4,22 @@ import datetime
 
 # ---------------------------------------------------------------
 
+# Initial data should present in the data.json file 
+
+# Initially this structure should be present in the .json file else the project will not work
+
+# {
+#     "ids": {
+#         "snack": 1,
+#         "bill": 1
+#     },
+#     "snacks": {},
+#     "sales": {},
+#     "bills": {}
+# }
+
+
+# Backup Data if lost
 # data = {
 #     "ids": {
 #         "snack": 3,
