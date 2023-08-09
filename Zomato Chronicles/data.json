@@ -1,0 +1,64 @@
+{
+    "ids": {
+        "dish_id": 5,
+        "order_id": 3
+    },
+    "orders": {
+        "1": {
+            "customer_name": "Prabhat",
+            "dish_n_prices": [
+                [
+                    1,
+                    "Dhosa",
+                    40
+                ],
+                [
+                    2,
+                    "Paneer Masala",
+                    200
+                ],
+                [
+                    3,
+                    "Chicken Curry",
+                    2000
+                ]
+            ],
+            "bill_price": 2240,
+            "status": "received"
+        },
+        "2": {
+            "customer_name": "Gaurav",
+            "bill_price": 2040.0,
+            "dish_n_prices": [
+                [
+                    "3",
+                    "Chicken Curry",
+                    2000.0
+                ],
+                [
+                    "1",
+                    "Dhosa",
+                    40.0
+                ]
+            ],
+            "status": "delivered"
+        }
+    },
+    "menu": {
+        "1": {
+            "name": "Dhosa",
+            "price": 40.0,
+            "available": true
+        },
+        "2": {
+            "name": "Paneer Masala",
+            "price": 200.0,
+            "available": true
+        },
+        "3": {
+            "name": "Chicken Curry",
+            "price": 2000.0,
+            "available": true
+        }
+    }
+}
