@@ -1,0 +1,27 @@
+<!-- crud_app/templates/update.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update</title>
+</head>
+<body>
+    <h1>Update Entry</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="index">Select Index:</label>
+        <select id="index" name="index">
+            {% for i in data.names %}
+            <option value="{{ forloop.counter0 }}">{{ i }}</option>
+            {% endfor %}
+        </select><br>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br>
+        <label for="age">Age:</label>
+        <input type="text" id="age" name="age" required><br>
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" required><br>
+        <button type="submit">Update</button>
+    </form>
+    <a href="{% url 'read' %}">Back to Read</a>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!-- crud_app/templates/read.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Read</title>
+</head>
+<body>
+    <h1>Read Entries</h1>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>City</th>
+        </tr>
+        {% for entry in entries %}
+        <tr>
+            <td>{{ entry.name }}</td>
+            <td>{{ entry.age }}</td>
+            <td>{{ entry.city }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <a href="{% url 'create' %}">Create Entry</a>
+    <a href="{% url 'update' %}">Update Entry</a>
+    <a href="{% url 'delete' %}">Delete Entry</a>
+</body>
+</html>

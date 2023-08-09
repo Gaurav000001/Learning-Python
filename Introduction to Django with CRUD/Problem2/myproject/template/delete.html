@@ -1,0 +1,21 @@
+<!-- crud_app/templates/delete.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete</title>
+</head>
+<body>
+    <h1>Delete Entry</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="index">Select Index:</label>
+        <select id="index" name="index">
+            {% for i in data.names %}
+            <option value="{{ forloop.counter0 }}">{{ i }}</option>
+            {% endfor %}
+        </select><br>
+        <button type="submit">Delete</button>
+    </form>
+    <a href="{% url 'read' %}">Back to Read</a>
+</body>
+</html>
