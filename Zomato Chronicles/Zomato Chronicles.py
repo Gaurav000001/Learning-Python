@@ -26,6 +26,7 @@ def add_dish(name, price, available):
     id = data['ids']['dish_id']
     data['ids']['dish_id'] = id + 1
     
+    id = str(id)
     menu[id] = dish
     
     try:
@@ -155,6 +156,7 @@ def take_order():
             order_id = data['ids']['order_id']
             data['ids']['order_id'] = int(order_id) + 1
             
+            order_id = str(order_id)
             orders[order_id] = new_order
             
             try:
@@ -203,7 +205,7 @@ def update_order_status(order_id, status):
             print(f"An error occurred: {e}")
             
     else:
-        print(f"Dish with Dish ID: {dish_id} is not present in the Menu!!")
+        print(f"Order with Order ID: {order_id} not found...")
         
         
         

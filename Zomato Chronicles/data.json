@@ -1,7 +1,7 @@
 {
     "ids": {
-        "dish_id": 5,
-        "order_id": 3
+        "dish_id": 8,
+        "order_id": 4
     },
     "orders": {
         "1": {
@@ -42,6 +42,23 @@
                 ]
             ],
             "status": "delivered"
+        },
+        "3": {
+            "customer_name": "Gaurav",
+            "bill_price": 2130.0,
+            "dish_n_prices": [
+                [
+                    "3",
+                    "Chicken Curry",
+                    2000.0
+                ],
+                [
+                    "6",
+                    "Ramen",
+                    130.0
+                ]
+            ],
+            "status": "received"
         }
     },
     "menu": {
@@ -58,6 +75,16 @@
         "3": {
             "name": "Chicken Curry",
             "price": 2000.0,
+            "available": true
+        },
+        "5": {
+            "name": "Matar paneer",
+            "price": 250.0,
+            "available": true
+        },
+        "6": {
+            "name": "Ramen",
+            "price": 130.0,
             "available": true
         }
     }
