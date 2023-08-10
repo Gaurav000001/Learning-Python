@@ -358,3 +358,11 @@ def review_orders(request):
 
     context = {'order_list': order_list}
     return render(request, 'review_orders.html', context)
+
+
+
+
+
+
+
+

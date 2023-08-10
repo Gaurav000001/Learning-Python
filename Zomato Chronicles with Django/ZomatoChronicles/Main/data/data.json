@@ -1,7 +1,7 @@
 {
     "ids": {
-        "dish_id": 9,
-        "order_id": 6
+        "dish_id": 10,
+        "order_id": 7
     },
     "orders": {
         "1": {
@@ -103,14 +103,26 @@
                 ]
             ],
             "status": "processing"
+        },
+        "6": {
+            "customer_name": "Saud",
+            "bill_price": 2200.0,
+            "dish_n_prices": [
+                [
+                    "2",
+                    "Paneer Masala",
+                    200.0
+                ],
+                [
+                    "3",
+                    "Chicken Curry",
+                    2000.0
+                ]
+            ],
+            "status": "processing"
         }
     },
     "menu": {
-        "1": {
-            "name": "Dhosa",
-            "price": 40.0,
-            "available": true
-        },
         "2": {
             "name": "Paneer Masala",
             "price": 200.0,
@@ -129,6 +141,11 @@
         "8": {
             "name": "Masala Dal",
             "price": "110",
+            "available": true
+        },
+        "9": {
+            "name": "Frooti",
+            "price": "40",
             "available": true
         }
     }
