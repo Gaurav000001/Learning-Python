@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>Review Orders</title>
+</head>
+<body>
+    <div class="review-orders-container">
+        <h1>Review Orders</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer Name</th>
+                    <th>Dish List</th>
+                    <th>Bill Price</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in order_list %}
+                <tr>
+                    <td>{{ order.order_id }}</td>
+                    <td>{{ order.customer_name }}</td>
+                    <td>
+                        <ul>
+                            {% for dish in order.dish_list %}
+                            <li>{{ dish.dish_name }} (ID: {{ dish.dish_id }}, Price: {{ dish.dish_price }})</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td>{{ order.bill_price }}</td>
+                    <td>{{ order.status }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

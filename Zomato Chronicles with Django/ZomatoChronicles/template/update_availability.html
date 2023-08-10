@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Availability</title>
+</head>
+<body>
+    <h1>Update Availability</h1>
+    <form method="post">
+        {% csrf_token %}
+
+        <label for="dish_id">Dish ID:</label><br>
+        <input type="text" id="dish_id" name="dish_id" required><br><br>
+        
+        <label for="available">Available:</label><br>
+        <select id="available" name="available" required>
+            <option value="true">True</option>
+            <option value="false">False</option>
+        </select><br><br>
+        
+        <button type="submit">Update Availability</button>
+    </form>
+</body>
+</html>
