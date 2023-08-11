@@ -8,6 +8,7 @@ data_dict = {
     "cities":["Chandrapur", "Haryana"]
 }
 
+
 # Create your views here.
 def create(request):
     if request.method == 'POST':
