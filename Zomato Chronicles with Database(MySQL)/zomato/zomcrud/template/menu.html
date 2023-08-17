@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <title>Food Junction</title>
+    <style>
+        .main>div{
+            width: 94%;
+            display: grid;
+            margin: auto;
+            grid-template-columns : repeat(4, 1fr);
+            gap: 30px 10px;
+        }
+        .image{
+            width: 19rem;
+            height: 13rem;   
+        }
+        img{
+            width: 100%; 
+            height: 100%; 
+        }
+    </style>
+</head>
+
+<nav class="navbar bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" style="font-weight:700; color:blue">Food Junction</a>
+        <div>
+            <a class="navbar-brand" href="/menu">Menu</a>
+            <a class="navbar-brand" href="/add-dish">Add Dish</a>
+            <a class="navbar-brand" href="#">Orders</a>
+        </div>
+        <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+
+<main>
+    <div class="mt-5 mb-5 main">
+        <div>
+            {% for dish in dishes %}
+            <div class="card">
+                <div class="image"><img src=/media/{{dish.image}} class="card-img-top" alt=""></div>
+                <div class="card-body">
+                    <p class="card-header">{{dish.name}}</p>
+                    <p class="card-text">{{dish.description|truncatechars:80}}</p>
+                    <p>₹{{dish.price}}</p>
+                    <p style="font-weight:700"
+                    {% if dish.is_available %}
+                    class="text-success"
+                    {% else %}
+                    class="text-danger"
+                    {% endif %}
+                    >
+                    {% if dish.is_available %}
+                    AVAILABLE
+                    {% else %}
+                    NOT AVAILABLE
+                    {% endif %}
+                    </p>
+                    <a href="update-availability/{{dish.dishID}}/{{dish.is_available}}" class="btn btn-primary">
+                        Update Availibility
+                    </a>
+                    <a href=delete-dish/{{dish.dishID}} class="btn btn-danger">
+                        Delete
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+
+
+
