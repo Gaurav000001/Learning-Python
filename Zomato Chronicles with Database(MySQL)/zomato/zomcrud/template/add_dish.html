@@ -1,33 +1,136 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <title>Food Junction</title>
+    <style>
+      /* Container needed to position the button. Adjust the width as needed */
+      .image-container {
+          position: relative;
+          width: 50%;
+      }
+      
+      /* Make the image responsive */
+      .image-container img {
+          width: 100%;
+          height: auto;
+          border-radius: 10px;
+      }
+      .image-container .edit {
+          z-index: 5;
+          background-color: rgb(170, 165, 165);
+          width: 35px;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          -ms-transform: translate(-50%, -50%);
+          color: white;
+          border: none;
+          cursor: pointer;
+          border-radius: 50%;
+          padding: 5px;
+      }
 
-{% block content %}
+      .image-container .edit:hover {
+          background-color: rgb(139, 135, 135);
+      }
 
-<div class="container mt-5 mb-5">
-    <form class="col-6 mx-auto card p-3" method="post" enctype="multipart/form-data">
-        <h3>Add Dish</h3>
-        <div class="mb-3 mt-3">
-            {% csrf_token %}
-          <label for="dish_name" class="form-label">Dish Name</label>
-          <input name="name" type="text" placeholder="Enter Dish Name..." class="form-control" id="dish_name" required>
-        </div>
-        <div class="mb-3">
-          <label for="description" class="form-label">Dish Description</label>
-          <textarea name="description" id="description" class="form-control" required></textarea>
-        </div>
-        <div class="mb-3">
-            <label for="price" class="form-label">Dish Price</label>
-            <input type="number" class="form-control" id="price" name="price" min="0" step="1" required>
-        </div>
-        <div class="mb-3">
-            <label for="image" class="form-label">Dish Image</label>
-            <input type="file" class="form-control" id="image" name="image" required>
-        </div>
-        <div class="mb-3 form-check">
-          <input type="checkbox" class="form-check-input" id="is_available" name="is_available">
-          <label class="form-check-label" for="is_available">Is Dish Available</label>
-        </div>
-        <button type="submit" class="btn btn-success">Add Dish</button>
-    </form>
-</div>
+      .image-container .file{
+          width: 35px;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          -ms-transform: translate(-50%, -50%);
+          color: white;
+          border: none;
+          cursor: pointer;
+          border-radius: 50%;
+          padding: 5px;
+      }
 
-{% endblock %}
+      .image-container .file:hover{
+          background-color: rgb(139, 135, 135);
+      }
+  </style>
+</head>
+<body>
+    <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" style="font-weight:700; color:blue">Food Junction</a>
+            <a class="navbar-brand" style="font-weight:700; color:green" href="/menu">Admin Menu</a>
+            <a href="/order-items" class="navbar-brand" style="font-weight:700; color:green">Order Dishes</a>
+            <a class="navbar-brand" style="font-weight:700; color:green" href="/add-dish">Add Dish</a>
+            <a class="navbar-brand" style="font-weight:700; color:green" href="/orders">Orders</a>
+
+            <form class="d-flex">
+                <input class="form-control me-2" name="search" type="text" placeholder="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+
+    <main>
+      <div class="container mt-5 mb-5">
+        <form class="col-6 mx-auto card p-3" method="post" enctype="multipart/form-data">
+            <h3>Add Dish</h3>
+            <hr>
+            <div class="mb-3 mt-3">
+                {% csrf_token %}
+              <label for="dish_name" class="form-label">Dish Name</label>
+              <input name="name" type="text" placeholder="Enter Dish Name..." class="form-control" id="dish_name" required>
+            </div>
+            <div class="mb-3">
+              <label for="description" class="form-label">Dish Description</label>
+              <textarea name="description" id="description" class="form-control" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label">Dish Price</label>
+                <input type="number" class="form-control" id="price" name="price" min="0" step="1" required>
+            </div>
+            <div class="mb-3">
+              <label for="image" class="form-label">Dish Image</label>
+              <input type="file" class="form-control" id="image" name="image" required onchange="showPreviewImage(this)">
+              <div id="imagePreview" style="display: none;">
+                  <img style="width: 100%; border-radius: 10px;" src="#" alt="Preview" />
+              </div>
+            </div>
+            <!-- <div class="mb-3">
+                <label for="image" class="form-label">Dish Image</label>
+                <input type="file" class="form-control" id="image" name="image" required>
+            </div> -->
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" id="is_available" name="is_available">
+              <label class="form-check-label" for="is_available">Is Dish Available</label>
+            </div>
+            <button type="submit" class="btn btn-success">Add Dish</button>
+        </form>
+      </div>
+    </main>
+</body>
+</html>
+
+
+<script>
+  function showPreviewImage(input) {
+      var imagePreview = document.getElementById('imagePreview');
+      var previewImage = imagePreview.querySelector('img');
+      
+      if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          
+          reader.onload = function(e) {
+              previewImage.src = e.target.result;
+              imagePreview.style.display = 'block';
+          };
+          
+          reader.readAsDataURL(input.files[0]);
+      } else {
+          imagePreview.style.display = 'none';
+          previewImage.src = '#';
+      }
+  }
+</script>

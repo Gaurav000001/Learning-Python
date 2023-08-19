@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <title>Food Junction</title>
+    <style>
+        .main>div{
+            width: 94%;
+            display: grid;
+            margin: auto;
+            grid-template-columns : repeat(4, 1fr);
+            gap: 30px 10px;
+        }
+        .image{
+            width: 19rem;
+            height: 13rem;   
+        }
+        img{
+            width: 100%; 
+            height: 100%; 
+        }
+        .order{
+            width: 90%;
+            align-items: center;
+            margin-bottom: 50px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" style="font-weight:700; color:blue">Food Junction</a>
+            <a class="navbar-brand" style="font-weight:700; color:green" href="/menu">Admin Menu</a>
+            <a href="/order-items" class="navbar-brand" style="font-weight:700; color:green">Order Dishes</a>
+            <a class="navbar-brand" style="font-weight:700; color:green" href="/add-dish">Add Dish</a>
+            <a class="navbar-brand" style="font-weight:700; color:green" href="/orders">Orders</a>
+
+            <form class="d-flex">
+                <input class="form-control me-2" name="search" type="text" placeholder="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+
+    <main>
+        <form method="post" style="border: 1px solid black">
+            <div class="mt-5 mb-5 main">
+                {% csrf_token %}
+                <label for="customer_name">Enter Your Name: </label>
+                <input type="text" name="customer_name" required>
+                
+                <div class="mt-5">
+                    {% for dish in dishes %}
+                    <div class="card">
+                        <div class="image"><img src=/media/{{dish.image}} class="card-img-top" alt=""></div>
+                        <div class="card-body">
+                            <p class="card-header">{{dish.name}}</p>
+                            <p class="card-text">{{dish.description|truncatechars:80}}</p>
+                            <p>₹{{dish.price}}</p>
+                            <p style="font-weight:700"
+                            {% if dish.is_available %}
+                            class="text-success"
+                            {% else %}
+                            class="text-danger"
+                            {% endif %}
+                            >
+                            {% if dish.is_available %}
+                            AVAILABLE
+                            {% else %}
+                            NOT AVAILABLE
+                            {% endif %}
+                            </p>
+                            <label>
+                                <input type="checkbox" name="selected_dishes" value="{{ dish.dishID }}">
+                                Select Item
+                            </label>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div style="display: flex; justify-content:center">
+                <input type="submit" class="btn btn-success order" value="Place Order">
+            </div>
+        </form>
+    </main>
+</body>
+</html>
+
