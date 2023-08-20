@@ -159,13 +159,27 @@ def orders(request):
 def order_details(request, orderID):
     
     order = Orders.objects.get(orderID = orderID)
-    print(order)
     
     if order:
         dishes = order.dishes.all()
-        print(dishes)
         
         return render(request, 'order_details.html', context={"dishes": dishes})
     
     else:
         return JsonResponse({"Error": 'Wrong orderID entered'}, status=400)
+    
+
+def update_order_status(request, orderID):
+    
+    order = Orders.objects.get(orderID = orderID)
+    
+    if order:
+        current_status = order.order_status
+        print(current_status)
+        
+        if current_status != 'delivered':
+            order_statuses = ['received', 'preparing', 'ready to pickup', 'delivered']
+            order.order_status = order_statuses[order_statuses.index(current_status) + 1]
+            order.save()
+        
+    return redirect('orders')

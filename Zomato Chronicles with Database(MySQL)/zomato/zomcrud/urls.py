@@ -14,7 +14,8 @@ urlpatterns = [
     path('update-dish/<int:dishID>', update_dish, name='update_dish'),
     path('order-items', order_items, name='order_items'),
     path('orders', orders, name='orders'),
-    path('order-details/<int:orderID>', order_details, name='order_details')
+    path('order-details/<int:orderID>', order_details, name='order_details'),
+    path('update-order-status/<int:orderID>', update_order_status, name='update_order_status')
 ]
 
 if settings.DEBUG:
